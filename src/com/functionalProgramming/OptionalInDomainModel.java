@@ -7,12 +7,19 @@ class Person
     /*Person may or may not have a car*/
     private final Optional<Car> car;
 
-    public Person(Optional<Car> car) {
+    private final int age;
+
+    public Person(Optional<Car> car,int age) {
         this.car = car;
+        this.age=age;
     }
 
     public Optional<Car> getCar() {
         return car;
+    }
+
+    public int getAge() {
+        return age;
     }
 }
 class Car
@@ -46,17 +53,18 @@ public class OptionalInDomainModel {
 
         Insurance insuranceName=new Insurance("LICInsurance");
         Car car=new Car(Optional.of(insuranceName));
-        Person person=new Person(Optional.of(car));
+        Person person=new Person(Optional.of(car),15);
         getCarInsuranceName(person);
 
 
-        Person person1=new Person(Optional.empty());
+        Person person1=new Person(Optional.empty(),19);
         getCarInsuranceName(person1);
 
         Person person2=null;
         getCarInsuranceNameWithOptionalMap(person2);
 
         getCheapestInsuranceForCar(person2,car);
+        checkIfPersonCanOwnACar(person);
 
     }
 
@@ -76,6 +84,16 @@ public class OptionalInDomainModel {
     {
         //logic
         System.out.println("Cheapest Insurance is LIC");
+    }
+
+    /*Filter will be applied same as that of Stream, if the predicate returns true then a value otherwise an empty
+     optional is obtain*/
+    public static void checkIfPersonCanOwnACar(Person person)
+    {
+        Optional.ofNullable(person).
+                filter(person1 -> person1.getAge() > 18).
+                ifPresentOrElse(person1 -> System.out.println("Can own a car"),
+                ()-> System.out.println("Can't own a car"));
     }
 
     public static void getCarInsuranceName(Person person)
