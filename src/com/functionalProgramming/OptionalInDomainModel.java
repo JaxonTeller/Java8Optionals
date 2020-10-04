@@ -1,7 +1,7 @@
 package com.functionalProgramming;
 
 import java.util.Optional;
-
+/*Using optional in your domain model is NOT a good practice as they are not serializable*/
 class Person
 {
     /*Person may or may not have a car*/
@@ -55,6 +55,27 @@ public class OptionalInDomainModel {
 
         Person person2=null;
         getCarInsuranceNameWithOptionalMap(person2);
+
+        getCheapestInsuranceForCar(person2,car);
+
+    }
+
+    public static void getCheapestInsuranceForCar(Person person,Car car)
+    {
+        Optional<Person> optionalPerson = Optional.ofNullable(person);
+        Optional<Car> optionalCar = Optional.ofNullable(car);
+        if(optionalPerson.isPresent() && optionalCar.isPresent())
+            findCheapestInsurance(person,car);
+        else
+            System.out.println("Person and Car both should be present to find out the cheapest insurance");
+
+
+    }
+
+    private static void findCheapestInsurance(Person person,Car car)
+    {
+        //logic
+        System.out.println("Cheapest Insurance is LIC");
     }
 
     public static void getCarInsuranceName(Person person)
