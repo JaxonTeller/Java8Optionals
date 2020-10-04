@@ -73,7 +73,7 @@ public class OptionalInDomainModel {
           /*If person is null then it will throw Optional.of(person) will throw Null Pointer Exception
           * hence using Optional.ofNullable*/
           insuranceName=
-                  Optional.ofNullable(person).flatMap(Person::getCar).flatMap(Car::getInsurance).map(insurance -> insurance.getInsuranceName());
+                  Optional.ofNullable(person).flatMap(Person::getCar).flatMap(Car::getInsurance).map(Insurance::getInsuranceName);
          System.out.println(insuranceName.orElse("No insurance found"));
     }
 }
